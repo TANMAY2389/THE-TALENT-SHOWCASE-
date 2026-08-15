@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TANMAY SARKAR — Art Exhibition Gallery</title>
+<meta name="description" content="Art exhibition gallery of Tanmay Sarkar, featuring THE TALENT SHOWCASE — student exhibition of Rainbow Colour Art School.">
+
+<!--
+  ============================================================
+  HOW TO ADD YOUR OWN PHOTOS
+  ============================================================
+  All images live in a folder named "images" next to this file.
+  Every artwork below is inside a <div class="frame"> (or
+  ".pin-card" / ".about-portrait"), and each has an <img> with
+  a src like "images/artwork-1.jpg" — just drop a file with that
+  exact name into the "images" folder and it will appear.
+
+  If an image is missing, the frame shows a soft placeholder
+  with a caption instead of a broken icon, so the page always
+  looks tidy while you add real photos.
+
+  NOTE: browsers cannot load images from a path on your own
+  computer such as "C:\Users\you\Pictures\photo.jpg" — copy the
+  files into the "images" folder and reference them as shown
+  above, e.g. images/photo.jpg.
+  ============================================================
+-->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=Work+Sans:wght@400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --wall:      #ECE8DD;   /* plaster wall */
+    --wall-deep: #E2DDCF;
+    --paper:     #FBFAF7;   /* frame mat / card */
+    --ink:       #221F27;   /* near-black plum-ink */
+    --ink-soft:  #4A4652;
+    --gold:      #B8873B;   /* aged frame gold */
+    --gold-soft: #D9B876;
+    --plum:      #3D1C39;   /* deep plum for footer/nav */
+    --plum-deep: #2A1327;
+
+    --r1: #E14B3C; --r2:#F1A208; --r3:#F4D35E;
+    --r4: #4F9D69; --r5:#2E86AB; --r6:#7B4B94;
+
+    --display: 'Fraunces', serif;
+    --body: 'Work Sans', sans-serif;
+    --mono: 'Space Mono', monospace;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    font-family: var(--body);
+    background: var(--wall);
+    color: var(--ink);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{ max-width:100%; display:block; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ list-style:none; }
+  section{ padding: 100px 24px; }
+  .wrap{ max-width:1140px; margin:0 auto; }
+
+  a:focus-visible,
+  button:focus-visible,
+  .btn:focus-visible{
+    outline: 2px solid var(--gold);
+    outline-offset: 3px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  .eyebrow{
+    font-family: var(--mono);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 14px;
+  }
+  h1,h2,h3{ font-family: var(--display); font-weight:600; color: var(--ink); }
+  .lede{ max-width: 640px; color: var(--ink-soft); font-size: 1.05rem; }
+  .center{ text-align:center; margin-left:auto; margin-right:auto; }
+
+  /* ---------- Buttons ---------- */
+  .btn{
+    display:inline-block;
+    font-family: var(--mono);
+    font-size: 0.82rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 14px 26px;
+    border: 1.5px solid var(--ink);
+    border-radius: 2px;
+    transition: all 0.25s ease;
+    cursor:pointer;
+    background:transparent;
+  }
+  .btn:hover{ background: var(--ink); color: var(--paper); }
+  .btn.solid{ background: var(--ink); color: var(--paper); }
+  .btn.solid:hover{ background: var(--gold); border-color: var(--gold); color: var(--plum-deep); }
+
+  /* ---------- Nav ---------- */
+  header.site-nav{
+    position: fixed; top:0; left:0; right:0; z-index: 50;
+    background: rgba(236,232,221,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(34,31,39,0.1);
+  }
+  .nav-inner{
+    max-width:1140px; margin:0 auto;
+    display:flex; align-items:center; justify-content:space-between;
+    padding: 16px 24px;
+    position: relative;
+  }
+  .brand{
+    font-family: var(--display); font-weight:700; font-size:1.15rem;
+    letter-spacing:0.02em;
+  }
+  .brand span{ color: var(--gold); }
+  .nav-links{ display:flex; gap:32px; }
+  .nav-links a{
+    font-family: var(--mono); font-size:0.78rem;
+    text-transform:uppercase; letter-spacing:0.08em;
+    color: var(--ink-soft);
+    border-bottom: 1px solid transparent;
+    padding-bottom:2px;
+    transition: color 0.2s, border-color 0.2s;
+  }
+  .nav-links a:hover{ color: var(--ink); border-color: var(--gold); }
+
+  .menu-toggle{ display:none; }
+  .hamburger{ display:none; font-size:1.4rem; cursor:pointer; background:none; border:none; color:var(--ink); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    min-height: 100vh;
+    display:flex; flex-direction:column; align-items:center; justify-content:center;
+    text-align:center;
+    padding: 140px 24px 80px;
+    position:relative;
+    background:
+      radial-gradient(circle at 18% 20%, rgba(184,135,59,0.10), transparent 45%),
+      radial-gradient(circle at 82% 78%, rgba(123,75,148,0.10), transparent 45%),
+      var(--wall);
+  }
+  .hero .eyebrow{ margin-bottom:22px; }
+  .hero h1{
+    font-size: clamp(2.4rem, 6vw, 4.6rem);
+    line-height: 1.05;
+    max-width: 900px;
+    margin-bottom: 22px;
+  }
+  .hero h1 em{ font-style: italic; color: var(--gold); }
+  .hero .lede{ margin-bottom: 40px; }
+  .hero-actions{ display:flex; gap:18px; flex-wrap:wrap; justify-content:center; }
+
+  /* picture-rail motif (signature element) */
+  .rail{ position:relative; height:2px; background:var(--gold-soft); margin: 90px auto 0; max-width:1140px; width:100%; }
+  .rail::before{
+    content:''; position:absolute; inset:0;
+    background-image: radial-gradient(circle, var(--gold) 1.5px, transparent 1.5px);
+    background-size: 42px 2px;
+    background-position: 21px 0;
+  }
+
+  /* ---------- Frame + hanging wire ---------- */
+  .frame-wrap{ position:relative; padding-top: 42px; }
+  .frame-wrap::before, .frame-wrap::after{
+    content:''; position:absolute; top:0; width:1px; height:42px;
+    background: rgba(34,31,39,0.32); transform-origin: top;
+  }
+  .frame-wrap::before{ left:50%; transform: translateX(-16px) rotate(-11deg); }
+  .frame-wrap::after{  left:50%; transform: translateX(16px) rotate(11deg); }
+
+  .frame{
+    background: var(--paper);
+    border: 1px solid rgba(34,31,39,0.08);
+    padding: 14px 14px 18px;
+    box-shadow: 0 18px 34px -18px rgba(34,31,39,0.35);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  .frame:hover{ transform: translateY(-6px); box-shadow: 0 26px 40px -16px rgba(34,31,39,0.42); }
+  .frame-art{
+    position:relative;
+    aspect-ratio: 4/5;
+    overflow:hidden;
+    background:
+      linear-gradient(135deg, var(--wall-deep), var(--paper) 60%);
+    border: 6px solid var(--paper);
+    outline: 1px solid rgba(184,135,59,0.5);
+  }
+  .frame-art img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2;
+  }
+  .frame-fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family: var(--mono); font-size:0.75rem; color: var(--ink-soft);
+    text-align:center; padding: 20px; z-index:1;
+  }
+  .frame-caption{ padding-top:12px; text-align:center; }
+  .frame-caption .num{ font-family: var(--mono); font-size:0.72rem; color: var(--gold); letter-spacing:0.08em; }
+  .frame-caption .title{ font-family: var(--display); font-weight:600; margin:4px 0 2px; }
+  .frame-caption .meta{ font-family: var(--mono); font-size:0.72rem; color: var(--ink-soft); }
+
+  /* ---------- Section headers ---------- */
+  .section-head{ text-align:center; max-width:640px; margin: 0 auto 56px; }
+
+  /* ---------- Gallery grid ---------- */
+  #gallery{ background: var(--wall); }
+  .gallery-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 46px 34px;
+  }
+
+  /* ---------- About ---------- */
+  #about{ background: var(--paper); border-top:1px solid rgba(34,31,39,0.08); border-bottom:1px solid rgba(34,31,39,0.08); }
+  .about-grid{ display:grid; grid-template-columns: 1fr 1.3fr; gap: 60px; align-items:center; }
+  .about-portrait{
+    position:relative;
+    aspect-ratio: 3/4;
+    overflow:hidden;
+    background: linear-gradient(160deg, var(--gold-soft), var(--wall-deep));
+    border: 6px solid var(--wall);
+    outline: 1px solid rgba(184,135,59,0.5);
+  }
+  .about-portrait img{
+    position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2;
+  }
+  .about-portrait .frame-fallback{ z-index:1; }
+
+  /* ---------- Talent Showcase (corkboard) ---------- */
+  #showcase{
+    background:
+      radial-gradient(rgba(34,31,39,0.05) 1px, transparent 1px) 0 0/16px 16px,
+      var(--wall-deep);
+    border-top:1px solid rgba(34,31,39,0.08);
+  }
+  .showcase-grid{
+    display:grid; grid-template-columns: repeat(3, 1fr); gap: 40px;
+  }
+  .pin-card{
+    background: var(--paper);
+    padding: 16px 16px 20px;
+    position:relative;
+    box-shadow: 0 14px 26px -14px rgba(34,31,39,0.4);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+  .pin-card:hover{ box-shadow: 0 20px 32px -14px rgba(34,31,39,0.48); }
+  .pin-card:nth-child(6n+1){ transform: rotate(-2deg); }
+  .pin-card:nth-child(6n+2){ transform: rotate(1.5deg); }
+  .pin-card:nth-child(6n+3){ transform: rotate(-1deg); }
+  .pin-card:nth-child(6n+4){ transform: rotate(2deg); }
+  .pin-card:nth-child(6n+5){ transform: rotate(-1.5deg); }
+  .pin-card:nth-child(6n+6){ transform: rotate(1deg); }
+  .pin-card:hover{ transform: rotate(0deg) translateY(-4px); }
+  .tape{
+    position:absolute; top:-14px; left:50%; transform: translateX(-50%) rotate(-3deg);
+    width:70px; height:26px; opacity:0.75;
+  }
+  .pin-card .art-art{
+    aspect-ratio: 1/1; margin-bottom:14px; position:relative; overflow:hidden;
+    background: linear-gradient(135deg, var(--c1), var(--c2));
+  }
+  .pin-card .art-art img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:2; }
+  .pin-card .art-fallback{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-family: var(--mono); font-size:0.72rem; color: rgba(255,255,255,0.92); text-align:center; padding:16px; z-index:1;
+  }
+  .pin-card .by{ font-family: var(--mono); font-size:0.72rem; color: var(--ink-soft); text-align:center; }
+  .pin-card .by strong{ color: var(--ink); font-family: var(--body); font-weight:600; }
+
+  /* ---------- Rainbow Colour Art School ---------- */
+  #school{
+    background: var(--plum);
+    color: var(--paper);
+    position:relative;
+    overflow:hidden;
+  }
+  #school::before{
+    content:'';
+    position:absolute; left:0; right:0; top:0; height:6px;
+    background: linear-gradient(90deg, var(--r1), var(--r2), var(--r3), var(--r4), var(--r5), var(--r6));
+  }
+  #school .eyebrow{ color: var(--gold-soft); }
+  #school h2{ color: var(--paper); }
+  #school .lede{ color: rgba(251,250,247,0.75); }
+  .school-grid{ display:grid; grid-template-columns: 1.1fr 0.9fr; gap:60px; align-items:center; }
+  .chip-row{ display:flex; flex-wrap:wrap; gap:12px; margin: 28px 0 34px; }
+  .chip{
+    font-family: var(--mono); font-size:0.78rem;
+    padding: 9px 16px; border-radius: 999px;
+    border: 1px solid rgba(251,250,247,0.28);
+    color: rgba(251,250,247,0.9);
+  }
+  .chip:nth-child(6n+1){ border-color: var(--r1); }
+  .chip:nth-child(6n+2){ border-color: var(--r2); }
+  .chip:nth-child(6n+3){ border-color: var(--r3); }
+  .chip:nth-child(6n+4){ border-color: var(--r4); }
+  .chip:nth-child(6n+5){ border-color: var(--r5); }
+  .chip:nth-child(6n+6){ border-color: var(--r6); }
+
+  .school-swatches{
+    display:grid; grid-template-columns: repeat(3,1fr); gap:14px;
+  }
+  .swatch{ aspect-ratio:1; border-radius: 6px; }
+  .swatch:nth-child(1){ background: var(--r1); }
+  .swatch:nth-child(2){ background: var(--r2); }
+  .swatch:nth-child(3){ background: var(--r3); }
+  .swatch:nth-child(4){ background: var(--r4); }
+  .swatch:nth-child(5){ background: var(--r5); }
+  .swatch:nth-child(6){ background: var(--r6); }
+
+  #school .btn{ border-color: var(--paper); color: var(--paper); }
+  #school .btn:hover{ background: var(--paper); color: var(--plum-deep); }
+
+  /* ---------- Footer / Contact ---------- */
+  footer{
+    background: var(--plum-deep);
+    color: rgba(251,250,247,0.85);
+    padding: 80px 24px 32px;
+    text-align:center;
+  }
+  footer h2{ color: var(--paper); margin-bottom:10px; }
+  footer .lede{ color: rgba(251,250,247,0.65); margin:0 auto 34px; }
+  .contact-row{
+    display:flex; justify-content:center; gap:40px; flex-wrap:wrap;
+    font-family: var(--mono); font-size:0.95rem; margin-bottom: 44px;
+  }
+  .contact-row a{ border-bottom:1px solid rgba(251,250,247,0.3); padding-bottom:2px; transition: border-color 0.2s, color 0.2s; }
+  .contact-row a:hover{ color: var(--gold-soft); border-color: var(--gold-soft); }
+  .contact-label{ display:block; font-size:0.68rem; letter-spacing:0.1em; text-transform:uppercase; color: var(--gold-soft); margin-bottom:6px; }
+  .foot-names{
+    font-family: var(--mono); font-size:0.72rem; letter-spacing:0.08em;
+    text-transform:uppercase; color: rgba(251,250,247,0.5);
+    border-top: 1px solid rgba(251,250,247,0.15); padding-top:24px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 860px){
+    .about-grid, .school-grid{ grid-template-columns: 1fr; }
+    .gallery-grid, .showcase-grid{ grid-template-columns: repeat(2, 1fr); }
+    .about-portrait{ max-width: 360px; margin: 0 auto; }
+  }
+  @media (max-width: 640px){
+    .nav-links{
+      position:absolute; top:100%; left:0; right:0;
+      background: var(--wall); flex-direction:column; gap:0;
+      max-height:0; overflow:hidden; transition: max-height 0.3s ease;
+      border-bottom: 1px solid rgba(34,31,39,0.1);
+    }
+    .nav-links a{ padding:16px 24px; border-bottom:1px solid rgba(34,31,39,0.06); }
+    .menu-toggle:checked ~ .nav-links{ max-height: 320px; }
+    .hamburger{ display:block; }
+    .gallery-grid, .showcase-grid{ grid-template-columns: 1fr; }
+    section{ padding: 70px 20px; }
+    .contact-row{ flex-direction:column; gap:26px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="site-nav">
+  <div class="nav-inner">
+    <a href="#top" class="brand">TANMAY <span>SARKAR</span></a>
+    <input type="checkbox" id="menu-toggle" class="menu-toggle">
+    <label for="menu-toggle" class="hamburger" aria-label="Toggle menu">&#9776;</label>
+    <nav class="nav-links">
+      <a href="#gallery">Gallery</a>
+      <a href="#showcase">Talent Showcase</a>
+      <a href="#school">Art School</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<!-- ================= HERO ================= -->
+<section class="hero" id="top">
+  <p class="eyebrow">Artist · Teacher · Gallery</p>
+  <h1>Colour finds its own <em>language</em></h1>
+  <p class="lede center">
+    A personal collection of paintings and drawings by TANMAY SARKAR — shown here
+    alongside <strong>THE TALENT SHOWCASE</strong>, the exhibition of young artists
+    from <strong>Rainbow Colour Art School</strong>.
+  </p>
+  <div class="hero-actions">
+    <a href="#gallery" class="btn solid">View the Gallery</a>
+    <a href="#showcase" class="btn">Meet the Students</a>
+  </div>
+  <div class="rail"></div>
+</section>
+
+<!-- ================= ABOUT ================= -->
+<section id="about">
+  <div class="wrap about-grid">
+    <div class="about-portrait">
+      <img src="C:\Users\ds373\Pictures\WhatsApp Image 2026-08-12 at 11.56.30 AM.jpeg" alt="Portrait of Tanmay Sarkar" onerror="this.style.display='none'">
+      <div class="frame-fallback">Add photo:<br>images/tanmay-portrait.jpg</div>
+    </div>
+    <div>
+      <p class="eyebrow">The Artist</p>
+      <h2 style="font-size:2.2rem; margin-bottom:18px;">About Tanmay Sarkar</h2>
+      <p class="lede" style="margin-bottom:16px;">
+        Tanmay Sarkar is a visual artist working across painting, sketching and mixed
+        media, with a practice built on patient line work, colour and close
+        observation. Every piece on this page began as a small idea worked out
+        slowly, on paper and canvas, over many quiet sittings.
+      </p>
+      <p class="lede">
+        Alongside a personal studio practice, Tanmay runs
+        <strong>Rainbow Colour Art School</strong>, teaching students of all ages
+        to draw, paint and see the world in colour — the results of which are
+        celebrated every year in <strong>THE TALENT SHOWCASE</strong>.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ================= GALLERY ================= -->
+<section id="gallery">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Selected Works</p>
+      <h2 style="font-size:2.4rem;">The Gallery</h2>
+      <p class="lede center">A collection of original paintings and drawings, hung here as they would be on a gallery wall.</p>
+    </div>
+    <div class="rail" style="margin-bottom:36px;"></div>
+
+    <div class="gallery-grid">
+
+      <div class="frame-wrap">
+        <div class="frame">
+          <div class="frame-art">
+            <img src=c:\Users\ds373\Pictures\WORKS26\IMG_20260810_112555.jpg alt="Artwork 1 by Tanmay Sarkar" onerror="this.style.display='none'">
+            <div class="frame-fallback">Add photo:<br>images/artwork-1.jpg</div>
+          </div>
+          <div class="frame-caption">
+            <p class="num">No. 01</p>
+            <p class="title">Untitled</p>
+            <p class="meta">Medium, Year</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame">
+          <div class="frame-art">
+            <img src="C:\Users\ds373\Pictures\WORKS26\IMG_20260810_112303.jpg" alt="Artwork 2 by Tanmay Sarkar" onerror="this.style.display='none'">
+            <div class="frame-fallback">Add photo:<br>images/artwork-2.jpg</div>
+          </div>
+          <div class="frame-caption">
+            <p class="num">No. 02</p>
+            <p class="title">Untitled</p>
+            <p class="meta">Medium, Year</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame">
+          <div class="frame-art">
+            <img src="C:\Users\ds373\Pictures\WORKS26\IMG_20260810_112252.jpg" alt="Artwork 3 by Tanmay Sarkar" onerror="this.style.display='none'">
+            <div class="frame-fallback">Add photo:<br>images/artwork-3.jpg</div>
+          </div>
+          <div class="frame-caption">
+            <p class="num">No. 03</p>
+            <p class="title">Untitled</p>
+            <p class="meta">Medium, Year</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame">
+          <div class="frame-art">
+            <img src="C:\Users\ds373\Pictures\WORKS26\IMG_20260810_112337.jpg" alt="Artwork 4 by Tanmay Sarkar" onerror="this.style.display='none'">
+            <div class="frame-fallback">Add photo:<br>images/artwork-4.jpg</div>
+          </div>
+          <div class="frame-caption">
+            <p class="num">No. 04</p>
+            <p class="title">Untitled</p>
+            <p class="meta">Medium, Year</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame">
+          <div class="frame-art">
+            <img src="C:\Users\ds373\Pictures\WORKS26\IMG_20260810_112239.jpg" alt="Artwork 5 by Tanmay Sarkar" onerror="this.style.display='none'">
+            <div class="frame-fallback">Add photo:<br>images/artwork-5.jpg</div>
+          </div>
+          <div class="frame-caption">
+            <p class="num">No. 05</p>
+            <p class="title">Untitled</p>
+            <p class="meta">Medium, Year</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame-wrap">
+        <div class="frame">
+          <div class="frame-art">
+            <img src="C:\Users\ds373\Pictures\WORKS26\IMG_20260810_112402.jpg" alt="Artwork 6 by Tanmay Sarkar" onerror="this.style.display='none'">
+            <div class="frame-fallback">Add photo:<br>images/artwork-6.jpg</div>
+          </div>
+          <div class="frame-caption">
+            <p class="num">No. 06</p>
+            <p class="title">Untitled</p>
+            <p class="meta">Medium, Year</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= TALENT SHOWCASE ================= -->
+<section id="showcase">
+  <div class="wrap">
+    <div class="section-head">
+      <p class="eyebrow">Student Exhibition</p>
+      <h2 style="font-size:2.4rem;">THE TALENT SHOWCASE</h2>
+      <p class="lede center">Every year, the young artists of Rainbow Colour Art School fill these walls with colour, courage and imagination. Here's a glimpse of their work.</p>
+    </div>
+
+    <div class="showcase-grid">
+
+      <div class="pin-card" style="--c1:var(--r1); --c2:var(--r2);">
+        <svg class="tape" viewBox="0 0 70 26"><rect width="70" height="26" fill="#F4D35E" opacity="0.85"/></svg>
+        <div class="art-art">
+          <img src="C:\Users\ds373\Pictures\WORKS26\STUDENS\IMG_20260810_112145.jpg" alt="Student artwork 1 by Samir Karwa" onerror="this.style.display='none'">
+          <div class="art-fallback">Add photo:<br>images/student-1.jpg</div>
+        </div>
+        <p class="by"><strong>SAMIR KARWA</strong><br>Age 17</p>
+      </div>
+
+      <div class="pin-card" style="--c1:var(--r3); --c2:var(--r4);">
+        <svg class="tape" viewBox="0 0 70 26"><rect width="70" height="26" fill="#2E86AB" opacity="0.8"/></svg>
+        <div class="art-art">
+          <img src="C:\Users\ds373\Pictures\WORKS26\STUDENS\IMG_20260810_112203.jpg" alt="Student artwork 2 by Samir Karwa" onerror="this.style.display='none'">
+          <div class="art-fallback">Add photo:<br>images/student-2.jpg</div>
+        </div>
+        <p class="by"><strong>SAMIR KARWA</strong><br>Age 17</p>
+      </div>
+
+      <div class="pin-card" style="--c1:var(--r5); --c2:var(--r6);">
+        <svg class="tape" viewBox="0 0 70 26"><rect width="70" height="26" fill="#E14B3C" opacity="0.8"/></svg>
+        <div class="art-art">
+          <img src="C:\Users\ds373\Pictures\WORKS26\STUDENS\IMG_20260810_112215.jpg" alt="Student artwork 3" onerror="this.style.display='none'">
+          <div class="art-fallback">Add photo:<br>images/student-3.jpg</div>
+        </div>
+        <p class="by"><strong>SAMIR KARWA</strong><br>Age 17</p>
+      </div>
+
+      <div class="pin-card" style="--c1:var(--r2); --c2:var(--r5);">
+        <svg class="tape" viewBox="0 0 70 26"><rect width="70" height="26" fill="#4F9D69" opacity="0.8"/></svg>
+        <div class="art-art">
+          <img src="C:\Users\ds373\Pictures\WORKS26\STUDENS\IMG_20260809_205624.jpg" alt="Student artwork 4" onerror="this.style.display='none'">
+          <div class="art-fallback">Add photo:<br>images/student-4.jpg</div>
+        </div>
+        <p class="by"><strong>DAVID ORAON</strong><br>Age 15</p>
+      </div>
+
+      <div class="pin-card" style="--c1:var(--r4); --c2:var(--r1);">
+        <svg class="tape" viewBox="0 0 70 26"><rect width="70" height="26" fill="#7B4B94" opacity="0.8"/></svg>
+        <div class="art-art">
+          <img src="C:\Users\ds373\Pictures\WhatsApp Image 2026-08-12 at 12.36.34 PM.jpeg" alt="Student artwork 5" onerror="this.style.display='none'">
+          <div class="art-fallback">Add photo:<br>images/student-5.jpg</div>
+        </div>
+        <p class="by"><strong>DAVID ORAON</strong><br>Age 15</p>
+      </div>
+
+      <div class="pin-card" style="--c1:var(--r6); --c2:var(--r3);">
+        <svg class="tape" viewBox="0 0 70 26"><rect width="70" height="26" fill="#F1A208" opacity="0.8"/></svg>
+        <div class="art-art">
+          <img src="C:\Users\ds373\Pictures\WhatsApp Image 2026-08-15 at 7.24.03 AM.jpeg" alt="Student artwork 6" onerror="this.style.display='none'">
+          <div class="art-fallback">Add photo:<br>images/student-6.jpg</div>
+        </div>
+        <p class="by"><strong>DAVID ORAON</strong><br>Age 15</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ================= RAINBOW COLOUR ART SCHOOL ================= -->
+<section id="school">
+  <div class="wrap school-grid">
+    <div>
+      <p class="eyebrow">Join The School</p>
+      <h2 style="font-size:2.3rem;">RAINBOW COLOUR ART SCHOOL</h2>
+      <p class="lede">
+        Weekend and weekday drawing &amp; painting classes for kids and beginners
+        — where every child learns to trust their own colours. Small batches,
+        patient teaching, and a fresh piece of art to take home every month.
+      </p>
+      <div class="chip-row">
+        <span class="chip">Ages 5–16</span>
+        <span class="chip">Drawing &amp; Painting</span>
+        <span class="chip">Small Batches</span>
+        <span class="chip">Weekend Batches</span>
+        <span class="chip">Beginners Welcome</span>
+      </div>
+      <a href="tel:+918159088563" class="btn">Call to Enrol</a>
+    </div>
+    <div class="school-swatches" aria-hidden="true">
+      <div class="swatch"></div><div class="swatch"></div><div class="swatch"></div>
+      <div class="swatch"></div><div class="swatch"></div><div class="swatch"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CONTACT / FOOTER ================= -->
+<footer id="contact">
+  <p class="eyebrow" style="text-align:center;">Get In Touch</p>
+  <h2>Visit, Enrol or Say Hello</h2>
+  <p class="lede center">For exhibitions, commissions or to join Rainbow Colour Art School, reach out any time.</p>
+
+  <div class="contact-row">
+    <div>
+      <span class="contact-label">Phone</span>
+      <a href="tel:+918159088563">+91 81590 88563</a>
+    </div>
+    <div>
+      <span class="contact-label">Phone</span>
+      <a href="tel:+918927624723">+91 89276 24723</a>
+    </div>
+    <div>
+      <span class="contact-label">Instagram</span>
+      <a href="https://instagram.com/sar.tanmay" target="_blank" rel="noopener">@sar.tanmay</a>
+    </div>
+  </div>
+
+  <p class="foot-names">Tanmay Sarkar &nbsp;·&nbsp; The Talent Showcase &nbsp;·&nbsp; Rainbow Colour Art School</p>
+</footer>
+
+</body>
+</html>
